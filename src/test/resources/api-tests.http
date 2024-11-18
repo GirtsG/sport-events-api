@@ -1,0 +1,96 @@
+# Requests which should return success:
+
+### Create a new sport type
+POST http://localhost:8080/api/sport-types
+Content-Type: application/json
+
+{
+  "name": "Basketball"
+}
+
+### Get all sport types
+GET http://localhost:8080/api/sport-types
+
+### Create a new sport event
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "name": "Champions League Final",
+  "sportTypeId": 1,
+  "startTime": "2024-11-20T18:00:00"
+}
+
+### Get all sport events
+GET http://localhost:8080/api/events
+
+### Get sport events filtered by status
+GET http://localhost:8080/api/events?status=INACTIVE
+
+### Get sport events filtered by sport type
+GET http://localhost:8080/api/events?sportTypeId=1
+
+### Get sport events filtered by both status and sport type
+GET http://localhost:8080/api/events?status=ACTIVE&sportTypeId=1
+
+### Get a sport event by ID
+GET http://localhost:8080/api/events/1
+
+### Update the status of a sport event to ACTIVE
+PATCH http://localhost:8080/api/events/1/status?newStatus=ACTIVE
+
+### Update a sport event's status to FINISHED
+PATCH http://localhost:8080/api/events/1/status?newStatus=FINISHED
+
+# Requests which should return errors:
+
+### Create a sport event with missing sportTypeId
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "name": "Champions League Final",
+  "startTime": "2024-11-20T18:00:00"
+}
+
+### Create a sport event with an invalid sportTypeId
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "name": "Champions League Final",
+  "sportTypeId": 999,
+  "startTime": "2024-11-20T18:00:00"
+}
+
+### Create a sport event with startTime in the past
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "name": "Champions League Final",
+  "sportTypeId": 1,
+  "startTime": "2023-11-20T18:00:00"
+}
+
+### Get a non-existent sport event by ID
+GET http://localhost:8080/api/events/9999
+
+### Get a sport event with invalid ID format
+GET http://localhost:8080/api/events/invalid
+
+### Update the status of a FINISHED event to ACTIVE
+PATCH http://localhost:8080/api/events/1/status?newStatus=ACTIVE
+
+### Attempt to change status from INACTIVE to FINISHED
+PATCH http://localhost:8080/api/events/1/status?newStatus=FINISHED
+
+### Activate an event with a past start time
+PATCH http://localhost:8080/api/events/1/status?newStatus=ACTIVE
+
+### Create a sport type with missing name
+POST http://localhost:8080/api/sport-types
+Content-Type: application/json
+
+{
+}
