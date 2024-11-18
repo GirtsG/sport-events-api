@@ -34,8 +34,6 @@ A CRUD REST API for managing sport events with business rules and validations.
    ./mvnw spring-boot:run
    ```
 
-3. API Root: http://localhost:8080/api/
-
 ### H2 Console Access
 The application uses an in-memory H2 database. You can access the H2 console for debugging purposes:
 
